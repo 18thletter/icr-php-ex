@@ -48,8 +48,6 @@ function getVidId($url) {
     return false;
   }
 
-  print_r($parts);
-
   // http:// or https://
   $regexScheme = '/^https?$/';
   if (!isset($parts['scheme']) || !preg_match($regexScheme, $parts['scheme'])) {
@@ -72,9 +70,10 @@ function getVidId($url) {
   // video-id is 11 characters and can contain dashes (-)
   // a url may contain addition other options than v
   $regexQuery = '/^(?:.+&)?v=((\w|-){11,11})(?:\S+)?/';
-  if (!isset($parts['query']) || !preg_match($regexQuery, $parts['query'], $matchesQuery)) {
-    return false;
-  }
+  if (!isset($parts['query']) ||
+    !preg_match($regexQuery, $parts['query'], $matchesQuery)) {
+      return false;
+    }
   // preg_match should have stored the id in the match array
   return $matchesQuery[1];
 }
@@ -85,5 +84,30 @@ if (!$videoId) {
   exit("Please enter a valid YouTube URL.\n");
 }
 
+const YOUTUBE_DATA_API_URL = "https://www.googleapis.com/youtube/v3/";
+define(
+  'API_VIDEO_PARTS',
+  "videos?part=" . urlencode("snippet,statistics") . "&fields=items(" .
+  urlencode("snippet,statistics") . ")"
+);
 const API_KEY = "AIzaSyC2FMDLgP7s-EsuzoKtpipmYEw0BAVLwds";
+
+$apiRequestUrl = YOUTUBE_DATA_API_URL . API_VIDEO_PARTS .
+  "&id=" . $videoId .
+  "&key=" . API_KEY;
+
+// send the get request to the Google YouTube API and decode the resulting
+// JSON
+$data = json_decode(file_get_contents($apiRequestUrl));
+
+// form an array to encode into JSON
+$jsonOutput = array();
+$jsonOutput['title'] = $data->items[0]->snippet->title;
+$jsonOutput['description'] = $data->items[0]->snippet->description;
+$jsonOutput['viewCount'] = $data->items[0]->statistics->viewCount;
+$jsonOutput['likeCount'] = $data->items[0]->statistics->likeCount;
+$jsonOutput['dislikeCount'] = $data->items[0]->statistics->dislikeCount;
+
+// output the results
+echo json_encode($jsonOutput);
 ?>
