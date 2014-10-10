@@ -24,6 +24,12 @@ var EX2 = (function() {
         case '2':
           errorMsg = "Password must be at least six characters.";
           break;
+        case '3':
+          errorMsg = "Email address format incorrect.";
+          break;
+        case '4':
+          errorMsg = "The email address or password is incorrect.";
+          break;
         default:
           break;
       }
