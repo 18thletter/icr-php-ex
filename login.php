@@ -1,14 +1,14 @@
 <?php
 // Enums to hold return values
 abstract class LoginError {
-  const NO_USERNAME = 0;
+  const NO_EMAIL = 0;
   const NO_PASSWORD = 1;
   const BAD_PASSWORD = 2;
 }
 
 // check the post
-if (!isset($_POST['username']) || empty($_POST['username'])) {
-  echo LoginError::NO_USERNAME;
+if (!isset($_POST['email']) || empty($_POST['email'])) {
+  echo LoginError::NO_EMAIL;
   exit;
 }
 if (!isset($_POST['password']) || empty($_POST['password'])) {
@@ -40,8 +40,8 @@ try {
 } catch (PDOException $e) {
   exit("Error:" . $e->getMessage());
 }
-$query = $pdo->prepare("SELECT * FROM users WHERE username = ?");
-if ($query->execute(array($_POST['username']))) {
+$query = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+if ($query->execute(array($_POST['email']))) {
   $row = $query->fetch();
   if ($row) {
     print_r($row);

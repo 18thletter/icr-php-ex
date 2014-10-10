@@ -1,11 +1,11 @@
 var EX2 = (function() {
   var ex2 = {};
-  ex2.login = function(username, password, checked, callback) {
+  ex2.login = function(email, password, checked, callback) {
     $.ajax({
       type: 'POST',
       url: 'login.php',
       data: {
-        username: username,
+        email: email,
         password: password,
         checked: checked
       }
@@ -16,7 +16,7 @@ var EX2 = (function() {
       switch (result) {
         // errors
         case '0':
-          errorMsg = "Username is required.";
+          errorMsg = "Email address is required.";
           break;
         case '1':
           errorMsg = "Password is required.";

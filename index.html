@@ -10,10 +10,10 @@
     window.addEventListener('load', function() {
       var form = document.getElementsByTagName('form')[0];
       form.onsubmit = function() {
-        var username = $('input[type=text]', this).val();
+        var email = $('input[type=email]', this).val();
         var password = $('input[type=password]', this).val();
         var checked = $('input[type=checkbox]', this).is(':checked');
-        EX2.login(username, password, checked, function(error) {
+        EX2.login(email, password, checked, function(error) {
           error && displayFlag(error);
         });
       }
@@ -23,7 +23,7 @@
 <body>
   <p></p>
   <form action="javascript:void(0);">
-    <input type="text" placeholder="User Name" autofocus required />
+    <input type="email" placeholder="Email Address" autofocus required />
     <input type="password" placeholder="Password" minlength="6" required />
     <label for="rememberme">Remember Me</label>
     <input type="checkbox" id="rememberme" value="0" />
