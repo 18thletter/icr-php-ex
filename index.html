@@ -3,6 +3,21 @@
   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="login.js"></script>
   <script>
+    function displayFlag(msg) {
+      document.getElementsByTagName('p')[0].innerHTML = msg;
+    }
+
+    window.addEventListener('load', function() {
+      var form = document.getElementsByTagName('form')[0];
+      form.onsubmit = function() {
+        var username = $('input[type=text]', this).val();
+        var password = $('input[type=password]', this).val();
+        var checked = $('input[type=checkbox]', this).is(':checked');
+        EX2.login(username, password, checked, function(error) {
+          error && displayFlag(error);
+        });
+      }
+    });
   </script>
 </head>
 <body>
