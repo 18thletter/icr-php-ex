@@ -1,0 +1,7 @@
+TABLE: users,,,,,
+Fields,Type,Null,Key,Default,Extra
+id,int(10) unsigned,no,primary,null,auto_increment
+email,varchar(255),no,unique,,
+password,varchar(255),no,,,
+lastLoginDate,datetime,no,,0000-00-00 00:00:00,
+createdDate,datetime,no,,0000-00-00 00:00:00,
