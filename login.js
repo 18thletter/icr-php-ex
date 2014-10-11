@@ -8,9 +8,12 @@ var EX2 = (function() {
         email: email,
         password: password,
         checked: checked
-      }
+      },
     }).done(function(result) {
       console.log(result);
+      if (result === 'success') {
+        document.location = 'dashboard.php';
+      }
       return;
       var errorMsg = '';
       switch (result) {

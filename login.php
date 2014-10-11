@@ -7,6 +7,7 @@ abstract class LoginError {
   const BAD_EMAIL = 3;
   const INVALID_CREDENTIALS = 4;
 }
+const SUCCESS = 'success';
 
 // check the post
 if (!isset($_POST['email']) || empty($_POST['email'])) {
@@ -64,11 +65,14 @@ $query = null;
 
 if ($row) {
   // if there is a user, check the password
-  print_r($row);
   if (isset($row['password']) &&
     password_verify($_POST['password'], $row['password'])) {
-      echo "good password";
-      // redirect to login page!
+      // if the password is good, redirect to dashboard
+      session_start();
+      $_SESSION['userEmail'] = $_POST['email'];
+      $_SESSION['justLoggedIn'] = true;
+      echo SUCCESS;
+      exit;
     } else {
       echo LoginError::INVALID_CREDENTIALS;
       exit;
@@ -87,8 +91,13 @@ if ($row) {
   $query->closeCursor();
   $query = null;
 
-  // redirect to login page!
-  echo "account created\n";
+  // redirect to dashboard page
+  session_start();
+  $_SESSION['userEmail'] = $_POST['email'];
+  $_SESSION['justLoggedIn'] = true;
+  $_SESSION['accountCreated'] = true;
+  echo SUCCESS;
+  exit;
 }
 $pdo = null;
 
