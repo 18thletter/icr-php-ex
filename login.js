@@ -10,11 +10,11 @@ var EX2 = (function() {
         checked: checked
       },
     }).done(function(result) {
-      console.log(result);
       if (result === 'success') {
         document.location = 'dashboard.php';
+        return;
       }
-      return;
+
       var errorMsg = '';
       switch (result) {
         // errors

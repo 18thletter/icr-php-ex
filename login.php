@@ -56,7 +56,7 @@ try {
 }
 
 // get the user by the email address
-$query = $pdo->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
+$query = $pdo->prepare("SELECT password FROM users WHERE email = ? LIMIT 1");
 $query->execute(array($_POST['email']));
 
 $row = $query->fetch();
@@ -67,7 +67,15 @@ if ($row) {
   // if there is a user, check the password
   if (isset($row['password']) &&
     password_verify($_POST['password'], $row['password'])) {
-      // if the password is good, redirect to dashboard
+      // if the password is good
+      // save the last login time
+      $query = $pdo->prepare(
+        "UPDATE users SET lastLoginDate = NOW() WHERE email = ?"
+      );
+      $query->execute(array($_POST['email']));
+      $query->closeCursor();
+      $query = null;
+      // redirect to dashboard
       session_start();
       $_SESSION['userEmail'] = $_POST['email'];
       $_SESSION['justLoggedIn'] = true;
