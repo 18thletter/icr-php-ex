@@ -27,6 +27,7 @@ icr-php-ex
   work. The thing that did it was setting to a time in the past.
 * The database schema is in a file in this repository, but I will list it here
   as well.
+
   **Table: users**
   ------------
   *Field* | *Type* | *Null* | *Key* | *Default* | *Extra*
