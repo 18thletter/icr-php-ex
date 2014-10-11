@@ -8,6 +8,8 @@ abstract class LoginError {
   const INVALID_CREDENTIALS = 4;
 }
 const SUCCESS = 'success';
+// set cookie expiration to 90 days
+const COOKIE_EXPIRATION = 60 * 60 * 24 * 90;
 
 // check the post
 if (!isset($_POST['email']) || empty($_POST['email'])) {
@@ -79,6 +81,12 @@ if ($row) {
       session_start();
       $_SESSION['userEmail'] = $_POST['email'];
       $_SESSION['justLoggedIn'] = true;
+
+      // use a cookie to remember the user's email
+      setcookie('rememberEmail', '', 0);
+      if (isset($_POST['remember']) && $_POST['remember'] === "true") {
+        setcookie('rememberEmail', $_POST['email'], time() + COOKIE_EXPIRATION);
+      }
       echo SUCCESS;
       exit;
     } else {
@@ -104,6 +112,12 @@ if ($row) {
   $_SESSION['userEmail'] = $_POST['email'];
   $_SESSION['justLoggedIn'] = true;
   $_SESSION['accountCreated'] = true;
+
+  // use a cookie to remember the user's email
+  setcookie('rememberEmail', '', 0);
+  if (isset($_POST['remember']) && $_POST['remember']) {
+    setcookie('rememberEmail', $_POST['email'], time() + COOKIE_EXPIRATION);
+  }
   echo SUCCESS;
   exit;
 }

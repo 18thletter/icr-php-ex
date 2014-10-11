@@ -7,7 +7,7 @@ var EX2 = (function() {
       data: {
         email: email,
         password: password,
-        checked: checked
+        remember: checked
       },
     }).done(function(result) {
       if (result === 'success') {

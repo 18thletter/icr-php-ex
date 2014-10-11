@@ -4,6 +4,8 @@
  */
 
 session_start();
+// check for session email
+// can also check here for the cookie, if we want to use that
 if (!isset($_SESSION['userEmail'])) {
   header('Location: index.php', true, 401);
   exit;
