@@ -5,6 +5,8 @@
 ?>
 <html>
 <head>
+  <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css" />
+  <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css" />
   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
   <script src="login.js"></script>
   <script>
@@ -26,19 +28,26 @@
   </script>
 </head>
 <body>
-  <p></p>
-  <form action="javascript:void(0);">
-  <input type="email" placeholder="Email Address" value="<?php
-    if(isset($_COOKIE['rememberEmail'])) {
-      echo $_COOKIE['rememberEmail'];
-    } ?>"autofocus required />
-    <input type="password" placeholder="Password" minlength="6" required />
-    <label for="rememberme">Remember Me</label>
-    <input type="checkbox" id="rememberme" value="0" <?php
-      if(isset($_COOKIE['rememberEmail'])) {
-        echo "checked";
-      } ?>/>
-    <input type="submit" value="Log In / Sign Up" />
-  </form>
+  <div class="container">
+    <p></p>
+    <form action="javascript:void(0);">
+    <legend>Log In or Sign Up</legend>
+    <fieldset>
+      <input type="email" placeholder="Email Address" value="<?php
+        if(isset($_COOKIE['rememberEmail'])) {
+          echo $_COOKIE['rememberEmail'];
+        } ?>"autofocus required />
+        <input type="password" placeholder="Password" minlength="6" required />
+        <label for="rememberme">
+          <input type="checkbox" id="rememberme" value="0" <?php
+            if(isset($_COOKIE['rememberEmail'])) {
+              echo "checked";
+            } ?>/>
+          <span>Remember Me</span>
+        </label>
+        <input type="submit" value="Log In / Sign Up" />
+      </fieldset>
+    </form>
+  </div>
 </body>
 </html>

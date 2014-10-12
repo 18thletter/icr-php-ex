@@ -11,15 +11,24 @@ if (!isset($_SESSION['userEmail'])) {
   exit;
 }
 
-echo '<h1>Dashboard</h1>';
-
-if (isset($_SESSION['accountCreated'])) {
-  echo '<p>Account created successfully!</p>';
-  unset($_SESSION['accountCreated']);
-}
-if (isset($_SESSION['justLoggedIn'])) {
-  echo '<p>Logged in successfully!</p>';
-  unset($_SESSION['justLoggedIn']);
-}
-
 ?>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css" />
+  <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Dashboard</h1>
+    <?php
+    if (isset($_SESSION['accountCreated'])) {
+      echo '<p>Account created successfully!</p>';
+      unset($_SESSION['accountCreated']);
+    }
+    if (isset($_SESSION['justLoggedIn'])) {
+      echo '<p>Logged in successfully!</p>';
+      unset($_SESSION['justLoggedIn']);
+    } ?>
+  </div>
+</body>
+</html>
