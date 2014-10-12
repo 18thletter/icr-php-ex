@@ -11,6 +11,12 @@
  *
  */
 
+if (!isset($argc) || !isset($argv) && isset($_GET['url'])) {
+  $url = $_GET['url'];
+  // using a goto!! haha I couldn't resist. didn't want to refactor too much
+  goto usingGET;
+}
+
 // One optional argument that should be the URL
 if ($argc > 2) {
   exit("Usage: ex1.php [YouTube Video URL]\n");
@@ -28,7 +34,7 @@ if (array_key_exists(1, $argv)) {
   fclose($fh);
 }
 
-
+usingGET:
 /**
  * Extract a YouTube video ID from a URL.
  *
@@ -99,6 +105,9 @@ $apiRequestUrl = YOUTUBE_DATA_API_URL . API_VIDEO_PARTS .
 // send the get request to the Google YouTube API and decode the resulting
 // JSON
 $data = json_decode(file_get_contents($apiRequestUrl));
+if (empty($data->items)) {
+  exit("No Result (probably invalid video ID)\n");
+}
 
 // form an array to encode into JSON
 $jsonOutput = array();
