@@ -3,6 +3,7 @@
 // but here, at this point in the script, we can redirect to dashboard
 // if the cookie is active.
 ?>
+<!doctype html>
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css" />
